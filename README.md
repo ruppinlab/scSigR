@@ -1,2 +1,2 @@
 # scSigR
-Generate a single cell signature matrix from single cell data.
+Generate a signature matrix from single cell data.
