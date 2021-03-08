@@ -1,12 +1,13 @@
 #' Aggregate gene expression profile GEP
 #' ------------------------------------
-# 'For each cell type represented by at least three single cells, we selected 
-# '50% of all available single-cell GEPs using random sampling without 
-#' replacement (fractional sample sizes were rounded up such that two cells 
-#' were sampled if only three were available). We then aggregated the profiles 
-#' by summation in non-log linear space and normalized each population-level 
-#' GEP into TPM. This process was repeated in order to generate five aggregated 
-#' transcriptome replicates per cell type assume availabe cell types are > 3
+# 'CIBERSORTx methods: "For each cell type represented by at least three single 
+#' cells, we selected 50% of all available single-cell GEPs using random 
+#' sampling without replacement (fractional sample sizes were rounded up such 
+#' that two cells were sampled if only three were available). We then aggregated 
+#' the profiles by summation in non-log linear space and normalized each 
+#' population-level GEP into TPM. This process was repeated in order to generate 
+#' five aggregated transcriptome replicates per cell type assume availabe cell 
+#' types are > 3".
 #'
 #' @param scgep A matrix of normalized gene expression values, rows are genes,
 #' columns are cells
@@ -16,7 +17,7 @@
 #' @param cell_types A vector indicating the cell types to use for generating
 #' the signature
 #' @param scale_factor Scaling factor used for normalization
-#' @param seed A number
+#' @param seed A seed number
 #'
 #' @return A matrix of aggregated GEP profiles
 #' @export
