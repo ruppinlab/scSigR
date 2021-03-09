@@ -18,6 +18,7 @@
 #' the signature
 #' @param scale_factor Scaling factor used for normalization
 #' @param seed A seed number
+#' @param num_gep A number - number of geps
 #'
 #' @return A matrix of aggregated GEP profiles
 #' @export

@@ -2,7 +2,7 @@
 #'
 #' @param gep A matrix of aggregated gene expression profiles
 #' @param cell_types A vector with cell types to consider
-#' @param num_gep 
+#' @param num_gep A number - number of geps
 #' @param test_alternative What alternative to use c("two.sided", "less", "greater")
 #'
 #' @return A list object.
