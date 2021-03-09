@@ -1,7 +1,7 @@
 # scSigR
 scSigR is an R package for generation of signature matrices from single cell data.
 
-<img src="https://github.com/ruppinlab/scSigR/blob/main/data/images/Figure1.png" alt="grouping" width="1121" height="570">
+<img src="https://github.com/ruppinlab/scSigR/blob/main/data/images/Figure1.png" alt="grouping" width="1121" height="520">
 
 ## Installing scSigR
 Install the development version directly from github (requires devtools)
