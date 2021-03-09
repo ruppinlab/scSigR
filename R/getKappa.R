@@ -10,6 +10,7 @@
 #' @param log2fc log2fc threshold for differential expression
 #' @param G_min A number - the miminum number of genes to start with
 #' @param G_max A number - Eq to G_min
+#' @param num_gep A number - number of geps
 #'
 #' @return A dataframe with the condition number for each iteration.
 #' @export
