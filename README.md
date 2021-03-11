@@ -63,7 +63,7 @@ A2M-AS1      0.007664     0.006702     0.009444
 Step 2: Perform differential expression. One cell type again all others.
 ```r
 degs <- scSigR::deg(
-  gep=as.matrix(gep), 
+  gep=as.matrix(geps), 
   cell_types=names(table(livnat_meta$Cell_Type)),
   num_gep=5,
   test_alternative="greater",
