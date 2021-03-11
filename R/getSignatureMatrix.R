@@ -40,7 +40,7 @@ getSignatureMatrix <- function(
     
     # Genes with a q value <0.01 (false discovery rate) 
     # and logfc < 0.5 were considered significant
-    diff_sig <- diff_ct[diff_ct$BH < 0.01 & diff_ct$log2fc > log2fc, ]
+    diff_sig <- diff_ct[diff_ct$BH < qvalue & diff_ct$log2fc > log2fc, ]
     
     # Sort by logfc
     diff_sorted <- diff_sig[order(diff_sig$log2fc, decreasing=TRUE), ]
