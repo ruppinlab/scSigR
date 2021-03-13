@@ -78,7 +78,7 @@ aggregateGEP <- function(
       )
       
       # Aggregate the profiles by summation in non-log linear space
-      cell_gep <- Matrix::rowSums(scgep[, sampled_cells])
+      cell_gep <- Matrix::rowSums(scgep[, as.character(sampled_cells)])
       
       # Write result to new matrix
       agg_ct[, matCol] <- cell_gep
