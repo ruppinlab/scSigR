@@ -3,6 +3,7 @@
 #' @param gep A matrix of aggregated gene expression profiles
 #' @param cell_types A vector with cell types to consider
 #' @param num_gep A number - number of geps
+#' @param stat_test Statistical test to use c("wilcox", "ttest")
 #' @param test_alternative What alternative to use c("two.sided", "less", "greater")
 #'
 #' @return A list object.
@@ -18,6 +19,7 @@ deg <- function(
   gep,
   cell_types,
   num_gep=5,
+  stat_test="wilcox",
   test_alternative="greater",
   verbose=FALSE){
   
@@ -34,11 +36,19 @@ deg <- function(
     # Var b has the cell types to compare to (eg. all T cells)
     b <- colnames(gep) %in% col_ct
     
-    # Run Wilcoxon tests (eg. T cells against all other cell types)
-    suppressWarnings({
-      results <- t(apply(agg_ct_nz, 1, function(x) wilcox_class(
-        x, b, test_alternative=test_alternative)))
-    })
+    if(stat_test == 'wilcox'){
+      # Run Wilcoxon tests (eg. T cells against all other cell types)
+      suppressWarnings({
+        results <- t(apply(agg_ct_nz, 1, function(x) wilcox_class(
+          x, b, test_alternative=test_alternative)))
+      })
+    }else{
+      # Run t-tests (eg. T cells against all other cell types)
+      suppressWarnings({
+        results <- t(apply(agg_ct_nz, 1, function(x) ttest_class(
+          x, b, test_alternative=test_alternative)))
+      })
+    }
     
     colnames(results) <- c('p_value','log2fc')
     results <- as.data.frame(results)
@@ -58,7 +68,7 @@ deg <- function(
 #' @param b A vector with column names used for test
 #' @param test_alternative What alternative to use c("two.sided", "less", "greater")
 #'
-#' @return
+#' @return a vector with pvalue and log2fc
 #' @export
 #'
 #' @examples
@@ -69,6 +79,31 @@ wilcox_class <- function(
   
   # Get pvalue
   p <- wilcox.test(v[b],v[!b], alternative = test_alternative)$p.value
+  
+  # Get fold change
+  # add small pseudocount
+  vpseudo <- v + 1
+  log2fc <- log2(mean(na.omit(vpseudo[b])/mean(na.omit(vpseudo[!b]))))
+  
+  return(c(p, log2fc))
+}
+
+#' Perform t test.
+#'
+#' @param v A gep matrix 
+#' @param b A vector with column names used for test
+#' @param test_alternative What alternative to use c("two.sided", "less", "greater")
+#'
+#' @return a vector with pvalue and log2fc
+#' @export
+#'
+#' @examples
+ttest_class<-function(
+  v,
+  b,
+  test_alternative="two.sided"){
+  
+  p <- t.test(v[b],v[!b],alternative = test_alternative)$p.value
   
   # Get fold change
   # add small pseudocount
