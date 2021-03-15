@@ -37,7 +37,7 @@ kappas <- scSigR::getKappa(
   agg_ct=geps, 
   diff_expr=degs, 
   cell_types=names(table(gbm_meta$Cell_Type)),
-  qvalue=0.05,
+  qvalue=0.001,
   log2fc=0.5, #fc=1.5
   num_gep=5,
   G_min=300,
@@ -52,7 +52,7 @@ signature <- scSigR::getSignatureMatrix(
   agg_ct=geps, 
   diff_expr = degs, 
   cell_types = names(table(gbm_meta$Cell_Type)),
-  qvalue=0.05,
+  qvalue=0.001,
   log2fc=0.5,
   optimalG=optimalG,
   num_gep=5)
@@ -186,7 +186,7 @@ kappas <- scSigR::getKappa(
   agg_ct=geps, 
   diff_expr=degs, 
   cell_types=names(table(livnat_meta$celltype)),
-  qvalue=0.05,
+  qvalue=0.01,
   log2fc=0.5, #fc=1.5
   num_gep=5,
   G_min=300,
@@ -201,7 +201,7 @@ signature <- scSigR::getSignatureMatrix(
   agg_ct=geps, 
   diff_expr = degs, 
   cell_types = names(table(livnat_meta$celltype)),
-  qvalue=0.05,
+  qvalue=0.01,
   log2fc=0.5,
   optimalG=optimalG,
   num_gep=5)
