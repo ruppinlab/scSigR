@@ -22,7 +22,7 @@ library(scSigR)
 ```
 
 ## Seurat
-04-13-2021 scSigR can now be used with Seurat object!
+04-13-2021 scSigR can now be used with a Seurat object!
 ```r
 signature <- scSigR::RunSigR(
   seurat_obj,
@@ -57,15 +57,15 @@ A1CF                 0             0             0
 3 MGH102-P1-A03 MGH102    Adult Malignant
 ```
 
+## Signatures are generated in 4 steps.
 Step 1: Aggregate Gene expression profiles (default 5, num_gep).
 ```r
 geps <- scSigR::aggregateGEP(
   livnat_mat, 
   livnat_meta, 
   cell_types=names(table(livnat_meta$Cell_Type)),
-  meta_column="Cell_Type",
+  celltype_column="Cell_Type",
   scale_factor=10000,
-  seed=1,
   num_gep=5,
   verbose = TRUE)
   
@@ -126,6 +126,7 @@ Get lowest condition number
 ```r
 optimalG <- kappas[kappas$condition_number==min(kappas$condition_number), ]$gene_iteration
 ```
+
 Step 4: Get signature matrix.
 ```r
 signature <- scSigR::getSignatureMatrix(
