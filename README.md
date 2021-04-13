@@ -27,6 +27,14 @@ library(scSigR)
 signature <- scSigR::RunSigR(
   seurat_obj,
   cell_types=c("CD8T", "CD4Tconv", "Mono/Macro"))
+  
+> signature[1:5, 1:3]
+         CD8T  CD4Tconv Mono/Macro
+CCR7 3.407659 0.6894390 0.17944693
+LEF1 2.566739 0.5078555 0.04899431
+MAL  2.775638 0.7251862 0.10114963
+MYC  3.341631 1.0512256 0.20400130
+CD27 5.074077 2.5608664 0.69854288
 ```
 
 ## Matrix and Meta data
