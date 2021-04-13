@@ -13,9 +13,9 @@
 #' columns are cells
 #' @param meta A data.frame with meta data information for each cell. A mandatory
 #' column name 'Cell' matches with the column names of scgep
-#' @param meta_column Name of the column that contains the cell type information
 #' @param cell_types A vector indicating the cell types to use for generating
 #' the signature
+#' @param celltype_column Name of the column that contains the cell type information
 #' @param scale_factor Scaling factor used for normalization
 #' @param seed A seed number
 #' @param num_gep A number - number of geps
@@ -28,7 +28,7 @@
 #'  livnat_mat, 
 #'  livnat_meta, 
 #'  cell_types=c("T-cell", "Malignant"),
-#'  meta_column="Cell_type",
+#'  celltype_column="Cell_type",
 #'  scale_factor=10000,
 #'  seed=1,
 #'  num_gep=5)
@@ -36,9 +36,9 @@ aggregateGEP <- function(
   scgep,
   meta_data,
   cell_types,
-  meta_column="Celltype (major-lineage)",
+  celltype_column="Celltype (major-lineage)",
   scale_factor=10000,
-  seed = 1,
+  seed = NULL,
   num_gep = 5,
   verbose=FALSE){
   
@@ -46,16 +46,19 @@ aggregateGEP <- function(
   # add quality checks for input
   if(is.data.frame(scgep)) {scgep <- as.matrix(scgep)}
   if(verbose){
-    print("Aggregate GEP: ")
+    message("Aggregate gene expression profiles GEP: ")
     print(str(scgep))
-    print(scgep[1:5, 1:5])
-    print(paste("Cell type column: ", meta_column, sep=""))
+    print(scgep[1:2, 1:5])
+    print(paste("Cell type column: ", celltype_column, sep=""))
     print(paste("Seed: ", seed, sep=""))
-    print(head(meta_data))
+    print(head(meta_data, 2))
   }
   
   # Set seed
-  set.seed(seed)
+  # TODO: This seed will only 'work' for the first sampling
+  if(!is.null(seed)){
+    set.seed(seed)
+  }
   
   # Aggregated cell types
   agg_ct <- matrix(nrow=dim(scgep)[1], ncol=length(cell_types) * 5)
@@ -66,7 +69,7 @@ aggregateGEP <- function(
     if(verbose) {print(cell_types[i])}
     
     # Get cells
-    cell_type_specific <- meta_data[meta_data[[meta_column]]==cell_types[i], ]
+    cell_type_specific <- meta_data[meta_data[[celltype_column]]==cell_types[i], ]
     
     for(j in 1:num_gep){
       

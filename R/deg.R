@@ -23,6 +23,9 @@ deg <- function(
   test_alternative="greater",
   verbose=FALSE){
   
+  
+  message("Perform differential expression DEG.")
+  
   agg_ct_nz <- gep[rowSums(gep) != 0, ]
   
   diff_expr <- list()

@@ -5,9 +5,18 @@ library(ggplot2)
 library(dplyr)
 library(reshape2)
 library(Metrics)
+library(Seurat)
 
 #Directory
 data_dir <- "~/datasets/nbl-integrative-analysis/data/GBM/"
+seurat_dir <- "~/datasets/sangre/paired_samples/"
+
+# Test workflow with seurat object ---------------------------------------------
+seurat_obj <- readRDS(paste(seurat_dir, "HNSCC_1_ct_CCA_integrated_seurat_confident_ct.rds", sep=""))
+
+signature <- scSigR::RunSigR(
+  seurat_obj,
+  cell_types=c("CD8T", "CD4Tconv", "Mono/Macro"))
 
 # Data GBM ---------------------------------------------------------------------
 gbm_mat <- readRDS(paste(data_dir, "GBM_forSignature_CV.rds", sep=""))

@@ -37,6 +37,7 @@ getKappa <- function(
   verbose=TRUE){
   
   if(verbose){
+    message("Get optimal condition number.")
     print(paste("qvalue: ", qvalue, sep=""))
     print(paste("log2fc: ", log2fc, sep=""))
     print(paste("G_min: ", G_min, sep=""))
@@ -64,6 +65,10 @@ getKappa <- function(
       # Select top G genes
       diff_top <- head(diff_sorted, G)
       sub_diff[[cell_types[i]]] <- diff_top
+    }
+    
+    if(sum(unlist(lapply(sub_diff, function(x) {dim(x)[1]})) == 0) > 0){
+      stop("No significant genes for one or more cell types. Try lowering qvalue.")
     }
     
     # Combined dataframes to single matrix
