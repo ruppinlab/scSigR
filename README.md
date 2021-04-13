@@ -21,6 +21,16 @@ library(scSigR)
 ?scSigR
 ```
 
+## Seurat
+04-13-2021 scSigR can now be used with Seurat object!
+```r
+signature <- scSigR::RunSigR(
+  seurat_obj,
+  cell_types=c("CD8T", "CD4Tconv", "Mono/Macro"))
+```
+
+## Matrix and Meta data
+Alternatively, the input can be a matrix and a meta file with cell ids and cell type information.
 We use the following input file as an example:
 ```r
 livnat_mat <- readRDS("GBM_forSignature_CV.rds")
